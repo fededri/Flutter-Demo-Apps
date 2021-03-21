@@ -53,49 +53,65 @@ class _MyHomePageState extends State<MyHomePage> {
     return Platform.isIOS
         ? iosWidget(context, body)
         : MaterialApp(
-            theme: ThemeData(
-                appBarTheme: AppBarTheme(
-                    textTheme: ThemeData.light().textTheme.copyWith(
-                        headline6: TextStyle(
-                            fontFamily: 'OpenSans',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold))),
-                primarySwatch: Colors.purple,
-                accentColor: Colors.amber,
-                fontFamily: 'Quicksand'),
-            home: Scaffold(
-              appBar: AppBar(
-                title: Text("Flutter App"),
-                actions: [
-                  Builder(
-                    builder: (ctx) => IconButton(
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                textTheme: ThemeData
+                    .light()
+                    .textTheme
+                    .copyWith(
+                    headline6: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold))),
+            primarySwatch: Colors.purple,
+            accentColor: Colors.amber,
+            fontFamily: 'Quicksand'),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Flutter App"),
+            actions: [
+              Builder(
+                builder: (ctx) =>
+                    IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () {
                           _startAddNewTransaction(ctx);
                         }),
-                  )
-                ],
-              ),
-              body: body,
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerFloat,
-              floatingActionButton: Builder(
-                builder: (ctx) => FloatingActionButton(
+              )
+            ],
+          ),
+          body: body,
+          floatingActionButtonLocation:
+          FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Builder(
+            builder: (ctx) =>
+                FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () {
                     _startAddNewTransaction(ctx);
                   },
                 ),
-              ),
-            ));
+          ),
+        ));
   }
 
   Widget iosWidget(BuildContext context, Widget body) {
     return CupertinoApp(
+        title: "Personal expenses",
         home: CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text("Flutter App")),
-      child: body,
-    ));
+          navigationBar: CupertinoNavigationBar(
+            middle: Text("Personal Expenses "),
+            trailing: Builder(
+              builder: (ctx) =>
+                  GestureDetector(
+                      child: Icon(CupertinoIcons.add),
+                      onTap: () {
+                        _startAddNewTransaction(context);
+                      }),
+            ),
+          ),
+          child: SafeArea(child: body),
+        ));
   }
 
   void _startAddNewTransaction(BuildContext context) {
